@@ -18,35 +18,53 @@ class State:
 
     def __str__(self):
         return f"{self.value}, visited:{self.visited} -> {self.actions}"
+    
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def push(self, value):
+        self.queue.append(value)
+
+    def remove(self):
+        return self.queue.pop(0)
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def remove(self):
+        return self.stack.pop()
 
 
-def breadth_first_search(space, initial_value, end_value):
-    queue = [space.get_state(initial_value)]
-    while queue:
-        current_state = queue.pop(0)
-        print(current_state)
-        current_state.mark_visited()
-        if current_state.value == end_value:
-            print("Eureka!")
-            return True
-        for action in current_state.actions:
-            next_state = space.get_state(action)
-            if not next_state.visited:
-                queue.append(next_state)
+class Searcher:
+    def __init__(self, space):
+        self.space = space
 
-def depth_first_search(space, initial_value, end_value):
-    stack = [space.get_state(initial_value)]
-    while stack:
-        current_state = stack.pop()
-        print(current_state)
-        current_state.mark_visited()
-        if current_state.value == end_value:
-            print("Eureka")
-            return True
-        for action in reversed(current_state.actions):
-            next_state = space.get_state(action)
-            if not next_state.visited:
-                stack.append(next_state)
+    def search(self, initial_value, end_value, data_structure):
+        initial_state = self.space.get_state(initial_value)
+        data_structure.push(initial_state)
+        while data_structure:
+            current_state = data_structure.remove()
+            print(current_state)
+            current_state.mark_visited()
+            if current_state.value == end_value:
+                print("Eureka!")
+                return True
+            for action in current_state.actions:
+                next_state = self.space.get_state(action)
+                if not next_state.visited:
+                    data_structure.push(next_state)
+
+    def breadth_first(self, initial_value, end_value):
+        return self.search(initial_value, end_value, Queue())
+
+    def depth_first(self, initial_value, end_value):
+        return self.search(initial_value, end_value, Stack())
 
 class StateSpace():
     def __init__(self):
@@ -87,11 +105,13 @@ if __name__ == "__main__":
         for action in actions:
             space.add_edge(state, action)
 
-    print("Buscar en profundidad")
-    depth_first_search(space, '0', '5')
+    searcher = Searcher(space)
+
+    print("Buscando en Profundidad")
+    searcher.depth_first('0', '5')
 
     space.reset()
 
-    print("Buscar en amplitud")
-    breadth_first_search(space, '0', '5')
+    print("Buscando en amplitud")
+    searcher.breadth_first('0', '5')
 

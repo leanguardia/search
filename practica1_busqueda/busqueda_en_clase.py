@@ -1,13 +1,18 @@
-## 1. ¿Cuál es la implementación MÁS SENCILLA para representar un nodo?
+# Buenas prácticas y pequeños incrementos hacia la generalización
+
+# 1. Renombrar clases y objetos de acuerdo al contexto de espacio de Estados
+# 2. Eliminar código duplicado
+# 3. Diseñar una clase para representar un EspacioDeEstados
+#        Debe poder cargarse el grafo unidireccional de la practica #1
+#        y el grafo bidireccional de la práctica #2 y #3
+# 4. Ajusta las funciones de búsqueda para que
+#       reciban un EspacioDeEstados
+#       retornen el camino encontrado
+
 class Node:
     def __init__(self, state, children=[]):
         self.state = state
         self.children = children
-
-## 3. Qué "signature" necesitan las funciones de búsqueda?
-  # Entradas (initial_state, goal_stat)
-  # Salidas: OK: return True
-            # No Solution: False
 
 def depth_first_search(initial_node, goal_state):
     stack = [initial_node]
@@ -32,11 +37,7 @@ def breadth_first_search(initial_node, goal_state):
     return False
 
 
-## 4. ¿Qué problema tiene esta implementación?
-
-
 if __name__ == "__main__":
-    ## 2. ¿Cómo represento este grafo?
     initial_node = Node("A",
         [
             Node("B", [
@@ -56,7 +57,3 @@ if __name__ == "__main__":
 
     print("Buscar en amplitud")
     breadth_first_search(initial_node, 'E')
-
-    # 1. ¿Y si mi grafo es bidireccional? -> Necesito una manera de recordar qué nodos visité
-    # 2. Uy, solo estoy imprimpiendo los nodos visitados, 
-    #     necesito una forma de recordar el camino y reutilizarlo de ser necesario.
