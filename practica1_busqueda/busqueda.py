@@ -5,6 +5,7 @@ class State:
         self.value = value
         self.visited = False
         self.actions = []
+        self.parent = None
     
     def add_action(self, other_value):
         if not other_value in self.actions:
@@ -16,9 +17,12 @@ class State:
     def mark_unvisited(self):
         self.visited = False
 
+    def set_parent(self, parent):
+        self.parent = parent
+
     def __str__(self):
         return f"{self.value}, visited:{self.visited} -> {self.actions}"
-    
+
 
 class Queue:
     def __init__(self):
@@ -29,6 +33,9 @@ class Queue:
 
     def remove(self):
         return self.queue.pop(0)
+    
+    def has(self, value):
+        return value in self.queue
 
 class Stack:
     def __init__(self):
@@ -39,6 +46,9 @@ class Stack:
 
     def remove(self):
         return self.stack.pop()
+    
+    def has(self, value):
+        return value in self.stack
 
 
 class Searcher:
@@ -50,21 +60,28 @@ class Searcher:
         data_structure.push(initial_state)
         while data_structure:
             current_state = data_structure.remove()
-            print(current_state)
             current_state.mark_visited()
             if current_state.value == end_value:
-                print("Eureka!")
-                return True
+                return self.build_solution_path(current_state)
             for action in current_state.actions:
                 next_state = self.space.get_state(action)
-                if not next_state.visited:
+                if not next_state.visited and not data_structure.has(next_state):
+                    next_state.set_parent(current_state)
                     data_structure.push(next_state)
+        return []
 
     def breadth_first(self, initial_value, end_value):
         return self.search(initial_value, end_value, Queue())
 
     def depth_first(self, initial_value, end_value):
         return self.search(initial_value, end_value, Stack())
+    
+    def build_solution_path(self, state):
+        path = []
+        while state:
+            path.append(state.value)
+            state = state.parent
+        return list(reversed(path))
 
 class StateSpace():
     def __init__(self):
@@ -79,7 +96,7 @@ class StateSpace():
     def add_edge(self, value1, value2):
         self.states[value1].add_action(value2)
 
-    def reset(self):
+    def reset_visits(self):
         for state in self.states.values():
             state.mark_unvisited()
 
@@ -108,10 +125,9 @@ if __name__ == "__main__":
     searcher = Searcher(space)
 
     print("Buscando en Profundidad")
-    searcher.depth_first('0', '5')
+    print(searcher.depth_first('0', '6'))
 
-    space.reset()
+    space.reset_visits()
 
     print("Buscando en amplitud")
-    searcher.breadth_first('0', '5')
-
+    print(searcher.breadth_first('0', '6'))
