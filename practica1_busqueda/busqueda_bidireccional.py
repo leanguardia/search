@@ -35,12 +35,12 @@ if __name__ == "__main__":
 
     # Option 1
     zero = Node('0', ['1', '3'])
-    one = Node('1', ['0', '3', '2', '5'])
+    one = Node('1', ['0', '2', '3', '5'])
     two = Node('2', ['1', '3', '5', '4'])
     three = Node('3', ['0', '1', '2', '4'])
-    four = Node('3', ['0', '1', '2', '4'])
-    four = Node('3', ['0', '1', '2', '4'])
-    ...
+    four = Node('4', ['2', '3', '6'])
+    five = Node('5', ['1', '2'])
+    six = Node('6', ['1', '4'])
 
     graph = Graph([zero, one, two, three, ...])
 
