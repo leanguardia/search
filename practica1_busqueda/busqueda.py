@@ -58,11 +58,14 @@ class Searcher:
     def search(self, initial_value, end_value, data_structure):
         initial_state = self.space.get_state(initial_value)
         data_structure.push(initial_state)
+
         while data_structure:
             current_state = data_structure.remove()
             current_state.mark_visited()
+
             if current_state.value == end_value:
                 return self.build_solution_path(current_state)
+
             for action in current_state.actions:
                 next_state = self.space.get_state(action)
                 if not next_state.visited and not data_structure.has(next_state):
