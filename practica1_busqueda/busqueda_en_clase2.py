@@ -11,44 +11,48 @@
 #       reciba un EspacioDeEstados, valor_inicial, valor_final
 #       retornen el camino encontrado
 
-
-class Stack():
+class Frontier():
     def __init__(self):
         self.values = []
 
     def push(self, value):
         self.values.append(value)
 
+    def has(self, value):
+        return value in self.values
+
+    def is_empty(self):
+        return len(self.values) == 0
+
+class Stack(Frontier):
     def pop(self):
         return self.values.pop()
 
-    def is_empty(self):
-        return len(self.values) == 0
-
-class Queue():
-    def __init__(self):
-        self.values = []
-
-    def push(self, value):
-        self.values.append(value)
-
+class Queue(Frontier):
     def pop(self):
         return self.values.pop(0)
-    
-    def is_empty(self):
-        return len(self.values) == 0
 
 class State:
     def __init__(self, value):
         self.value = value
         self.actions = []
+        self.visited = False
 
     def add_action(self, action):
         if not action in self.actions:
             self.actions.append(action)
 
+    def mark_visited(self):
+        self.visited = True
+
+    def mark_unvisited(self):
+        self.visited = False
+
+    def was_visited(self):
+        return self.visited
+
     def __str__(self):
-        return f"{self.value} -> {self.actions}"
+        return f"{self.value}:{self.visited} -> {self.actions}"
 
 
 class StatesSpace:
@@ -63,7 +67,11 @@ class StatesSpace:
 
     def get_state(self, value):
         return self.space[value]
-    
+
+    def reset_visited(self):
+        for state in self.space.values():
+            state.mark_unvisited()
+
     def __str__(self):
         return "\n".join(str(state) for state in self.space.values())
 
@@ -81,15 +89,21 @@ class Searcher:
     def search(self, intial_value, goal_value, frontier):
         initial_state = self.space.get_state(intial_value)
         frontier.push(initial_state)
+
         while not frontier.is_empty():
             current_state = frontier.pop()
             print(current_state)
+            current_state.mark_visited()
+
             if current_state.value == goal_value:
                 print("Eureka!")
                 return True
+
             for action in current_state.actions:
                 next_state = self.space.get_state(action)
-                frontier.push(next_state)
+                if not next_state.was_visited() and not frontier.has(next_state):
+                    frontier.push(next_state)
+
         return False
 
 
@@ -125,11 +139,14 @@ if __name__ == "__main__":
 
     searcher = Searcher(space)
     # print(space)
+
     initial_value = '0'
     goal_value = '6'
 
     print("Buscar en profundidad")
     searcher.depth_first(initial_value, goal_value)
+
+    space.reset_visited()
 
     print("Buscar en amplitud")
     searcher.breadth_first(initial_value, goal_value)
