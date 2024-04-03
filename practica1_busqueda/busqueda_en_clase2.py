@@ -1,15 +1,14 @@
-# Buenas prácticas y pequeños incrementos hacia la generalización
+# Buenas prácticas y pequeños incrementos hacia la generalización 3
 
-# 1. Renombrar clases y objetos de acuerdo al contexto de espacio de Estados
-# 2. Eliminar código duplicado
+# 1. Codificar el espacio de estados con acciones y costos
 
-# 3. Diseñar una clase para representar un EspacioDeEstados
-#        Debe poder cargarse el grafo unidireccional de la practica #1
-#        y el grafo bidireccional de la práctica #2 y #3
+# 2. Cargar el grafo en una instancia de StateSpace
 
-# 4. Ajusta las funciones de búsqueda para que
-#       reciba un EspacioDeEstados, valor_inicial, valor_final
-#       retornen el camino encontrado
+# 3. Ajustar el algoritmo de búsqueda en profundidad y amplitud
+#    funcione con el nuevo espacio de estados
+
+# 4. Implementar UCS
+
 
 class Frontier():
     def __init__(self):
@@ -152,7 +151,7 @@ if __name__ == "__main__":
     # print(space)
 
     initial_value = '0'
-    goal_value = '5'
+    goal_value = '6'
 
     print("Buscar en profundidad")
     path = searcher.depth_first(initial_value, goal_value)
