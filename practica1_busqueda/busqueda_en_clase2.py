@@ -37,6 +37,7 @@ class State:
         self.value = value
         self.actions = []
         self.visited = False
+        self.parent = None
 
     def add_action(self, action):
         if not action in self.actions:
@@ -50,6 +51,9 @@ class State:
 
     def was_visited(self):
         return self.visited
+    
+    def set_parent(self, value):
+        self.parent = value
 
     def __str__(self):
         return f"{self.value}:{self.visited} -> {self.actions}"
@@ -81,10 +85,10 @@ class Searcher:
         self.space = space
 
     def depth_first(self, intial_value, goal_value):
-        self.search(intial_value, goal_value, frontier=Stack())
+        return self.search(intial_value, goal_value, frontier=Stack())
 
     def breadth_first(self, intial_value, goal_value):
-        self.search(intial_value, goal_value, frontier=Queue())
+        return self.search(intial_value, goal_value, frontier=Queue())
 
     def search(self, intial_value, goal_value, frontier):
         initial_state = self.space.get_state(intial_value)
@@ -92,19 +96,26 @@ class Searcher:
 
         while not frontier.is_empty():
             current_state = frontier.pop()
-            print(current_state)
+            # print(current_state)
             current_state.mark_visited()
 
             if current_state.value == goal_value:
-                print("Eureka!")
-                return True
+                return self.build_solution_path(current_state)
 
             for action in current_state.actions:
                 next_state = self.space.get_state(action)
                 if not next_state.was_visited() and not frontier.has(next_state):
+                    next_state.set_parent(current_state)
                     frontier.push(next_state)
 
-        return False
+        return []
+
+    def build_solution_path(self, state):
+        path = []
+        while state:
+            path.append(state.value)
+            state = state.parent
+        return list(reversed(path))
 
 
 
@@ -141,12 +152,14 @@ if __name__ == "__main__":
     # print(space)
 
     initial_value = '0'
-    goal_value = '6'
+    goal_value = '5'
 
     print("Buscar en profundidad")
-    searcher.depth_first(initial_value, goal_value)
+    path = searcher.depth_first(initial_value, goal_value)
+    print(path)
 
     space.reset_visited()
 
     print("Buscar en amplitud")
-    searcher.breadth_first(initial_value, goal_value)
+    path = searcher.breadth_first(initial_value, goal_value)
+    print(path)
