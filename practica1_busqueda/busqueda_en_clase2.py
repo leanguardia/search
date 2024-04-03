@@ -1,11 +1,11 @@
 # Buenas prácticas y pequeños incrementos hacia la generalización 3
 
-# 1. Codificar el espacio de estados con acciones y costos
+# 1. Codificar el espacio de estados con acciones y costos ✅
 
-# 2. Cargar el grafo en una instancia de StateSpace
+# 2. Cargar el grafo en una instancia de StateSpace ✅
 
 # 3. Ajustar el algoritmo de búsqueda en profundidad y amplitud
-#    funcione con el nuevo espacio de estados
+#    funcione con el nuevo espacio de estados ✅
 
 # 4. Implementar UCS
 
@@ -95,14 +95,14 @@ class Searcher:
 
         while not frontier.is_empty():
             current_state = frontier.pop()
-            # print(current_state)
+            print(current_state)
             current_state.mark_visited()
 
             if current_state.value == goal_value:
                 return self.build_solution_path(current_state)
 
             for action in current_state.actions:
-                next_state = self.space.get_state(action)
+                next_state = self.space.get_state(action[0])
                 if not next_state.was_visited() and not frontier.has(next_state):
                     next_state.set_parent(current_state)
                     frontier.push(next_state)
@@ -136,6 +136,14 @@ if __name__ == "__main__":
         '5': ['1', '2'],
         '6': ['1', '4'],
     }
+    space_dict = {
+        'A': [('B', 4), ('C', 5)],
+        'B': [('A', 4), ('C', 11), ('D', 9), ('E', 7)],
+        'C': [('A', 5), ('B', 11), ('E', 3)],
+        'D': [('B', 9), ('E', 13), ('F', 2)],
+        'E': [('B', 7), ('C', 3), ('D', 13), ('F', 6)],
+        'F': [('D', 2), ('E', 6)],
+    }
 
     space = StatesSpace()
 
@@ -150,8 +158,8 @@ if __name__ == "__main__":
     searcher = Searcher(space)
     # print(space)
 
-    initial_value = '0'
-    goal_value = '6'
+    initial_value = 'A'
+    goal_value = 'F'
 
     print("Buscar en profundidad")
     path = searcher.depth_first(initial_value, goal_value)
