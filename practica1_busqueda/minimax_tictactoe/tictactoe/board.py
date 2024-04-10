@@ -6,7 +6,7 @@ class Board():
     self.min_player = 'O'
 
   def __str__(self):
-    return '\n--+---+--\n'.join([' | '.join(row) for row in self.matrix])
+    return ('\n--+---+--\n'.join([' | '.join(row) for row in self.matrix])) + '\n'
 
   def player(self):
     x_count = sum(row.count('X') for row in self.matrix)
