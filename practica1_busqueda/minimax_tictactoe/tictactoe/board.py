@@ -46,7 +46,7 @@ class Board():
   
   def get_cell(self, i, j):
     return self.matrix[i][j]
-  
+
   def set_state(self, state):
     self.matrix = state
 
