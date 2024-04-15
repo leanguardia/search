@@ -1,7 +1,8 @@
 from board import Board
 
 if __name__ == '__main__':
-    board = Board([['X', 'O', ' '],[ ' ', 'X', ' '],[' ', ' ', 'O']])
+    # state = [['X', 'O', ' '],[ ' ', 'X', ' '],[' ', ' ', 'O']]
+    board = Board(size=4)
     print(board)
     print(board.player())
     print(board.actions())

@@ -1,12 +1,13 @@
 class Board():
-  def __init__(self, state=None):
-    self.size = 3
+  def __init__(self, size=3, state=None):
+    self.size = size
     self.matrix = state or [[' ' for _ in range(self.size)] for _ in range(self.size)]
     self.max_player = 'X'
     self.min_player = 'O'
 
   def __str__(self):
-    return ('\n--+---+--\n'.join([' | '.join(row) for row in self.matrix])) + '\n'
+    row_separator = '\n' + '--' + '+---' * (self.size - 2) + '+--\n'
+    return (row_separator.join([' | '.join(row) for row in self.matrix])) + '\n'
 
   def player(self):
     x_count = sum(row.count('X') for row in self.matrix)

@@ -10,11 +10,27 @@ class TestBoard(unittest.TestCase):
       for cell in row:
         self.assertEqual(cell, ' ')
 
-  def test_print_empty_board(self):
+  def tests_three_is_the_default_size(self):
+    board = Board()
+
+    self.assertEqual(board.size, 3)
+
+  def tests_board_can_be_created_with_a_custom_size(self):
+    board = Board(size=4)
+
+    self.assertEqual(board.size, 4)
+
+  def test_print_empty_3x3_board(self):
     board = Board()
     printed_board = board.__str__()
 
-    self.assertEqual(printed_board, "  |   |  \n--+---+--\n  |   |  \n--+---+--\n  |   |  ")
+    self.assertEqual(printed_board, "  |   |  \n--+---+--\n  |   |  \n--+---+--\n  |   |  \n")
+
+  def test_print_empry_4x4_board(self):
+    board = Board(size=4)
+    printed_board = board.__str__()
+
+    self.assertEqual(printed_board, "  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n")
 
   def test_player_X_starts(self):
     board = Board()
