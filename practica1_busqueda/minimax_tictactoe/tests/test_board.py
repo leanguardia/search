@@ -39,7 +39,7 @@ class TestBoard(unittest.TestCase):
 
   def test_player_O_goes_after_X(self):
     board = Board()
-    board.play(0, 0)
+    board.play((0, 0))
 
     self.assertEqual(board.player(), 'O')
 
@@ -62,18 +62,48 @@ class TestBoard(unittest.TestCase):
 
   def test_play_X(self):
     board = Board()
-    board.play(0, 0)
+    board.play((0, 0))
 
     self.assertEqual(board.get_cell(0, 0), 'X')
 
   def test_play_O(self):
     board = Board()
-    board.play(0, 0)
-    board.play(0, 1)
+    board.play((0, 0))
+    board.play((0, 1))
 
     self.assertEqual(board.get_cell(0, 1), 'O')
+
+  def test_board_utility_X_wins_diagonal(self):
+    board = Board()
+    board.set_state([['X', 'O', ' '], [' ', 'X', ' '], [' ', 'O', 'X']])
+
+    self.assertEqual(board.utility(), 1)
+
+  def test_board_utility_X_wins_column(self):
+    board = Board()
+    board.set_state([['X', 'O', ' '], ['X', 'O', ' '], ['X', ' ', ' ']])
+
+    self.assertEqual(board.utility(), 1)
+
+  def test_board_utility_O_wins_row(self):
+    board = Board()
+    board.set_state([['O', 'O', 'O'], ['X', 'X', ' '], ['X', ' ', ' ']])
+
+    self.assertEqual(board.utility(), -1)
+
+  def test_board_utility_O_wins_column(self):
+    board = Board()
+    board.set_state([['X', 'O', ' '], [' ', 'O', ' '], ['X', 'O', 'X']])
+
+    self.assertEqual(board.utility(), -1)
+
+  def test_board_utility_draw(self):
+    board = Board()
+    board.set_state([['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']])
+
+    self.assertEqual(board.utility(), 0)
 
 
 # Run the tests
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

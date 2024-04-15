@@ -20,7 +20,7 @@ class Board():
       if row[0] == row[1] == row[2] != ' ':
         return True
 
-    for j in range(3):
+    for j in range(self.size):
       if self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] != ' ':
         return True
 
@@ -34,17 +34,48 @@ class Board():
         return False
     return True
   
-  def play(self, i, j):
-    self.matrix[i][j] = self.player()
+  def play(self, action):
+    self.matrix[action[0]][action[1]] = self.player() 
+    return self
 
   def actions(self):
     possible_actions = []
-    for i in range(3):
-      for j in range(3):
+    for i in range(self.size):
+      for j in range(self.size):
         if self.matrix[i][j] == ' ':
           possible_actions.append((i, j))
     return possible_actions
   
+  def utility(self):
+    for row in self.matrix:     # Rows
+      are_equal = True
+      for j in range(self.size-1):
+        if row[j] != row[j+1]:
+          are_equal = False
+          break
+      if are_equal:
+        if row[0] == 'X':
+          return 1
+        elif row[0] == 'O':
+          return -1
+
+    for j in range(self.size):   # Columns
+      if self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] == 'X':
+        return 1
+      elif self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] == 'O':
+        return -1
+
+    if self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 'X':
+      return 1
+    elif self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 'O':
+      return -1
+    if self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 'X':
+      return 1
+    elif self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 'O':
+      return -1
+
+    return 0
+
   def get_cell(self, i, j):
     return self.matrix[i][j]
 
