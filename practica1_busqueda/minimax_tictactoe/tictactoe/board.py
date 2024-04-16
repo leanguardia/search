@@ -16,18 +16,29 @@ class Board():
         return self.max_player if x_count == o_count else self.min_player
     
     def terminal(self):
+        # Checks win on row
         for row in self.matrix:
-            if row[0] == row[1] == row[2] != ' ':
-                return True
+            for j in range(self.size-1):
+                if row[j] != row[j+1]:
+                    break
 
+        # Check win on column
         for j in range(self.size):
-            if self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] != ' ':
-                return True
+            for i in range(self.size-1):
+                if self.matrix[i][j] != self.matrix[i+1][j]:
+                    break
 
-        if self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] != ' ':
-            return True
-        if self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] != ' ':
-            return True
+        # Check win on diagonals
+        for i in range(self.size):
+            if self.matrix[i][i] == ' ':
+                break
+            if i == self.size - 1:
+                return True
+        for i in range(self.size):
+            if self.matrix[i][self.size - i - 1] == ' ':
+                break
+            if i == self.size - 1:
+                return True
 
         for row in self.matrix:
             if ' ' in row:
@@ -47,7 +58,7 @@ class Board():
         return possible_actions
     
     def utility(self):
-        for row in self.matrix:     # Rows
+        for row in self.matrix:          # Rows
             are_equal = True
             for j in range(self.size-1):
                 if row[j] != row[j+1]:
@@ -56,23 +67,37 @@ class Board():
             if are_equal:
                 if row[0] == 'X':
                     return 1
-            elif row[0] == 'O':
-                return -1
+                elif row[0] == 'O':
+                    return -1
 
-        for j in range(self.size):   # Columns
-            if self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] == 'X':
-                return 1
-            elif self.matrix[0][j] == self.matrix[1][j] == self.matrix[2][j] == 'O':
-                return -1
+        for j in range(self.size):          # Columns
+            are_equal = True
+            for i in range(self.size-1):
+                if self.matrix[i][j] != self.matrix[i+1][j]:
+                    are_equal = False
+                    break
+            if are_equal:
+                if self.matrix[0][j] == 'X':
+                    return 1
+                elif self.matrix[0][j] == 'O':
+                    return -1
 
-        if self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 'X':
-            return 1
-        elif self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 'O':
-            return -1
-        if self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 'X':
-            return 1
-        elif self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 'O':
-            return -1
+        for i in range(self.size-1):          # Diagonals
+            if self.matrix[i][i] != self.matrix[i+1][i+1]:
+                break
+            if i == self.size-2:
+                if self.matrix[0][0] == 'X':
+                    return 1
+                elif self.matrix[0][0] == 'O':
+                    return -1
+        for i in range(self.size-1):
+            if self.matrix[i][self.size-1-i] != self.matrix[i+1][self.size-2-i]:
+                break
+            if i == self.size-2:
+                if self.matrix[0][self.size-1] == 'X':
+                    return 1
+                elif self.matrix[0][self.size-1] == 'O':
+                    return -1
 
         return 0
 

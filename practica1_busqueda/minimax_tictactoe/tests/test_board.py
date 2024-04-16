@@ -37,6 +37,21 @@ class TestBoard(unittest.TestCase):
 
         self.assertEqual(board.player(), 'X')
 
+    def test_play_X(self):
+        board = Board()
+        board.play((0, 0))
+
+        self.assertEqual(board.get_cell(0, 0), 'X')
+
+    def test_play_O(self):
+        board = Board()
+        board.play((0, 0))
+        board.play((0, 1))
+
+        self.assertEqual(board.get_cell(0, 1), 'O')
+
+
+    # Describe #player()
     def test_player_O_goes_after_X(self):
         board = Board()
         board.play((0, 0))
@@ -74,20 +89,14 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue(board.terminal())
 
-    def test_play_X(self):
+    def test_terminal_partial_board(self):
         board = Board()
-        board.play((0, 0))
+        board.set_state([['X', 'O', 'X'], [' ', ' ', ' '], [' ', ' ', ' ']])
 
-        self.assertEqual(board.get_cell(0, 0), 'X')
+        self.assertFalse(board.terminal())
 
-    def test_play_O(self):
-        board = Board()
-        board.play((0, 0))
-        board.play((0, 1))
 
-        self.assertEqual(board.get_cell(0, 1), 'O')
-
-    # Describe #terminal()
+    # Describe #utility()
     def test_utility_X_wins_diagonal(self):
         board = Board()
         board.set_state([['X', 'O', ' '], [' ', 'X', ' '], [' ', 'O', 'X']])
