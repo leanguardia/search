@@ -1,3 +1,5 @@
+import copy
+
 class Board():
     def __init__(self, size=3, state=None):
         self.size = size
@@ -29,25 +31,26 @@ class Board():
                     break
 
         # Check win on diagonals
-        for i in range(self.size):
-            if self.matrix[i][i] == ' ':
+        for i in range(self.size-1):
+            if self.matrix[i][i] == ' ' or self.matrix[i][i] != self.matrix[i+1][i+1]:
                 break
-            if i == self.size - 1:
+            if i == self.size - 2:
                 return True
         for i in range(self.size):
-            if self.matrix[i][self.size - i - 1] == ' ':
+            if self.matrix[i][self.size-1-i] == ' ' or self.matrix[i][self.size-1-i] != self.matrix[i+1][self.size-2-i]:
                 break
-            if i == self.size - 1:
+            if i == self.size - 2:
                 return True
 
         for row in self.matrix:
             if ' ' in row:
                 return False
         return True
-        
+
     def play(self, action):
-        self.matrix[action[0]][action[1]] = self.player() 
-        return self.matrix
+        new_board = copy.deepcopy(self)
+        new_board.matrix[action[0]][action[1]] = self.player()
+        return new_board
 
     def actions(self):
         possible_actions = []

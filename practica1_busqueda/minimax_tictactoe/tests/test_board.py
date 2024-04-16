@@ -39,14 +39,14 @@ class TestBoard(unittest.TestCase):
 
     def test_play_X(self):
         board = Board()
-        board.play((0, 0))
+        board = board.play((0, 0))
 
         self.assertEqual(board.get_cell(0, 0), 'X')
 
     def test_play_O(self):
         board = Board()
-        board.play((0, 0))
-        board.play((0, 1))
+        board = board.play((0, 0))
+        board = board.play((0, 1))
 
         self.assertEqual(board.get_cell(0, 1), 'O')
 
@@ -54,20 +54,20 @@ class TestBoard(unittest.TestCase):
     # Describe #player()
     def test_player_O_goes_after_X(self):
         board = Board()
-        board.play((0, 0))
+        board = board.play((0, 0))
 
         self.assertEqual(board.player(), 'O')
 
     def test_players_alternate_turns(self):
         board = Board()
         self.assertEqual(board.player(), 'X')
-        board.play((0, 0))
+        board = board.play((0, 0))
         self.assertEqual(board.player(), 'O')
-        board.play((1, 1))
+        board = board.play((1, 1))
         self.assertEqual(board.player(), 'X')
-        board.play((2, 2))
+        board = board.play((2, 2))
         self.assertEqual(board.player(), 'O')
-        board.play((0, 1))
+        board = board.play((0, 1))
         self.assertEqual(board.player(), 'X')
 
 
@@ -83,15 +83,27 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue(board.terminal())
 
-    def test_terminal_X_wins(self):
+    def test_terminal_X_wins_diagonal1(self):
+        board = Board()
+        board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], [' ', ' ', 'X']])
+
+        self.assertTrue(board.terminal())
+
+    def test_terminal_X_wins_diagonal2(self):
         board = Board()
         board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], ['X', ' ', ' ']])
 
         self.assertTrue(board.terminal())
 
-    def test_terminal_partial_board(self):
+    def test_terminal_partial_board1(self):
         board = Board()
         board.set_state([['X', 'O', 'X'], [' ', ' ', ' '], [' ', ' ', ' ']])
+
+        self.assertFalse(board.terminal())
+
+    def test_terminal_partial_board1(self):
+        board = Board()
+        board.set_state([['X', 'O', 'X'], ['X', 'O', 'O'], ['O', 'X', ' ']])
 
         self.assertFalse(board.terminal())
 
