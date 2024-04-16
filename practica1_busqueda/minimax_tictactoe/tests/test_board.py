@@ -3,105 +3,120 @@ from tictactoe.board import Board
 
 
 class TestBoard(unittest.TestCase):
-  def tests_boards_cells_are_empty(self):
-    board = Board()
+    def tests_boards_cells_are_empty(self):
+        board = Board()
 
-    for row in board.matrix:
-      for cell in row:
-        self.assertEqual(cell, ' ')
+        for row in board.to_matrix():
+            for cell in row:
+                self.assertEqual(cell, ' ')
 
-  def tests_three_is_the_default_size(self):
-    board = Board()
+    def tests_three_is_the_default_size(self):
+        board = Board()
 
-    self.assertEqual(board.size, 3)
+        self.assertEqual(board.get_size(), 3)
 
-  def tests_board_can_be_created_with_a_custom_size(self):
-    board = Board(size=4)
+    def tests_board_can_be_created_with_a_custom_size(self):
+        board = Board(size=4)
 
-    self.assertEqual(board.size, 4)
+        self.assertEqual(board.get_size(), 4)
 
-  def test_print_empty_3x3_board(self):
-    board = Board()
-    printed_board = board.__str__()
+    def test_print_empty_3x3_board(self):
+        board = Board()
+        printed_board = board.__str__()
 
-    self.assertEqual(printed_board, "  |   |  \n--+---+--\n  |   |  \n--+---+--\n  |   |  \n")
+        self.assertEqual(printed_board, "  |   |  \n--+---+--\n  |   |  \n--+---+--\n  |   |  \n")
 
-  def test_print_empry_4x4_board(self):
-    board = Board(size=4)
-    printed_board = board.__str__()
+    def test_print_empty_4x4_board(self):
+        board = Board(size=4)
+        printed_board = board.__str__()
 
-    self.assertEqual(printed_board, "  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n")
+        self.assertEqual(printed_board, "  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n--+---+---+--\n  |   |   |  \n")
 
-  def test_player_X_starts(self):
-    board = Board()
+    def test_player_X_starts(self):
+        board = Board()
 
-    self.assertEqual(board.player(), 'X')
+        self.assertEqual(board.player(), 'X')
 
-  def test_player_O_goes_after_X(self):
-    board = Board()
-    board.play((0, 0))
+    def test_player_O_goes_after_X(self):
+        board = Board()
+        board.play((0, 0))
 
-    self.assertEqual(board.player(), 'O')
+        self.assertEqual(board.player(), 'O')
 
-  def test_terminal_empty_board(self):
-    board = Board()
+    def test_players_alternate_turns(self):
+        board = Board()
+        self.assertEqual(board.player(), 'X')
+        board.play((0, 0))
+        self.assertEqual(board.player(), 'O')
+        board.play((1, 1))
+        self.assertEqual(board.player(), 'X')
+        board.play((2, 2))
+        self.assertEqual(board.player(), 'O')
+        board.play((0, 1))
+        self.assertEqual(board.player(), 'X')
 
-    self.assertFalse(board.terminal())
 
-  def test_terminal_full_board(self):
-    board = Board()
-    board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], ['O', 'X', 'O']])
+    # Describe #terminal()
+    def test_terminal_empty_board(self):
+        board = Board()
 
-    self.assertTrue(board.terminal())
+        self.assertFalse(board.terminal())
 
-  def test_terminal_X_wins(self):
-    board = Board()
-    board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'O', 'O']])
+    def test_terminal_full_board(self):
+        board = Board()
+        board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], ['O', 'X', 'O']])
 
-    self.assertTrue(board.terminal())
+        self.assertTrue(board.terminal())
 
-  def test_play_X(self):
-    board = Board()
-    board.play((0, 0))
+    def test_terminal_X_wins(self):
+        board = Board()
+        board.set_state([['X', 'O', 'X'], ['O', 'X', 'O'], ['X', ' ', ' ']])
 
-    self.assertEqual(board.get_cell(0, 0), 'X')
+        self.assertTrue(board.terminal())
 
-  def test_play_O(self):
-    board = Board()
-    board.play((0, 0))
-    board.play((0, 1))
+    def test_play_X(self):
+        board = Board()
+        board.play((0, 0))
 
-    self.assertEqual(board.get_cell(0, 1), 'O')
+        self.assertEqual(board.get_cell(0, 0), 'X')
 
-  def test_board_utility_X_wins_diagonal(self):
-    board = Board()
-    board.set_state([['X', 'O', ' '], [' ', 'X', ' '], [' ', 'O', 'X']])
+    def test_play_O(self):
+        board = Board()
+        board.play((0, 0))
+        board.play((0, 1))
 
-    self.assertEqual(board.utility(), 1)
+        self.assertEqual(board.get_cell(0, 1), 'O')
 
-  def test_board_utility_X_wins_column(self):
-    board = Board()
-    board.set_state([['X', 'O', ' '], ['X', 'O', ' '], ['X', ' ', ' ']])
+    # Describe #terminal()
+    def test_utility_X_wins_diagonal(self):
+        board = Board()
+        board.set_state([['X', 'O', ' '], [' ', 'X', ' '], [' ', 'O', 'X']])
 
-    self.assertEqual(board.utility(), 1)
+        self.assertEqual(board.utility(), 1)
 
-  def test_board_utility_O_wins_row(self):
-    board = Board()
-    board.set_state([['O', 'O', 'O'], ['X', 'X', ' '], ['X', ' ', ' ']])
+    def test_utility_X_wins_column(self):
+        board = Board()
+        board.set_state([['X', 'O', ' '], ['X', 'O', ' '], ['X', ' ', ' ']])
 
-    self.assertEqual(board.utility(), -1)
+        self.assertEqual(board.utility(), 1)
 
-  def test_board_utility_O_wins_column(self):
-    board = Board()
-    board.set_state([['X', 'O', ' '], [' ', 'O', ' '], ['X', 'O', 'X']])
+    def test_utility_O_wins_row(self):
+        board = Board()
+        board.set_state([['O', 'O', 'O'], ['X', 'X', ' '], ['X', ' ', ' ']])
 
-    self.assertEqual(board.utility(), -1)
+        self.assertEqual(board.utility(), -1)
 
-  def test_board_utility_draw(self):
-    board = Board()
-    board.set_state([['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']])
+    def test_utility_O_wins_column(self):
+        board = Board()
+        board.set_state([['X', 'O', ' '], [' ', 'O', ' '], ['X', 'O', 'X']])
 
-    self.assertEqual(board.utility(), 0)
+        self.assertEqual(board.utility(), -1)
+
+    def test_utility_draw(self):
+        board = Board()
+        board.set_state([['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']])
+
+        self.assertEqual(board.utility(), 0)
 
 
 # Run the tests
