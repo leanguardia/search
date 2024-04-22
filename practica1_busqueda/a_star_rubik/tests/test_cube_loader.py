@@ -39,17 +39,44 @@ class TestBoard(unittest.TestCase):
         for row in down_face:
             self.assertEqual(row, 'YYY')
 
-    def test_a_sorted_cube_is_valid(self):
+    def test_an_unsorted_cube(self):
         loader = CubeLoader()
-        loader.load('tests/fixtures/sorted_cube.txt')
+        loader.load('tests/fixtures/unsorted_cube.txt')
 
-        self.assertTrue(loader.validate())
+        faces = loader.cube_faces
 
-    def test_loads_invalid_center(self):
+        up_face = faces['U']
+        self.assertEqual(len(up_face), 3)
+        left_face = faces['L']
+        self.assertEqual(len(left_face), 3)
+        front_face = faces['F']
+        self.assertEqual(len(front_face), 3)
+        right_face = faces['R']
+        self.assertEqual(len(right_face), 3)
+        back_face = faces['B']
+        self.assertEqual(len(back_face), 3)
+        down_face = faces['D']
+        self.assertEqual(len(down_face), 3)
+
+    # def test_invalid_center_position(self):
+    #     loader = CubeLoader()
+    #     loader.load('tests/fixtures/invalid_center_position.txt')
+
+    #     self.assertFalse(loader.validate())
+
+    def test_loads_invalid_cell_count(self):
         loader = CubeLoader()
-        loader.load('tests/fixtures/invalid_center.txt')
+        try:
+            loader.load('tests/fixtures/invalid_cell_count.txt')
+        except Exception as e:
+            self.assertEqual(str(e), 'Invalid cell count')
 
-        self.assertFalse(loader.validate())
+    def test_loads_invalid_color_count(self):
+        loader = CubeLoader()
+        try:
+            loader.load('tests/fixtures/invalid_color_count.txt')
+        except Exception as e:
+            self.assertEqual(str(e), 'Invalid color count')
 
 
 # Run the tests

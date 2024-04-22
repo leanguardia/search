@@ -18,7 +18,11 @@ class CubeLoader():
         # remove all spaces and breaklines
         lines = [line.replace(' ', '').replace('\n', '') for line in lines]
         # merge lines into a single one
+
         data = ''.join(lines)
+
+        self.validate(data)
+        
 
         for i in range(0, 9, 3):
             self.cube_faces['U'].append(data[i:i+3])
@@ -34,10 +38,20 @@ class CubeLoader():
             self.cube_faces['D'].append(data[i:i+3])
         file.close()
     
-    def validate(self):
-        centers = [self.cube_faces[face][1][1] for face in self.faces()]
-        centers.sort()
-        return centers == self.colors
+    def validate(self, data):
+        # check if data has 54 characters
+        if len(data) != 54:
+            raise Exception('Invalid cell count')
+
+        # count colors
+        color_count = {}
+        for color in self.colors:
+            color_count[color] = 0
+        for color in data:
+            color_count[color] += 1
+        for color in self.colors:
+            if color_count[color] != 9:
+                raise Exception('Invalid color count')
 
     
     def faces(self):
