@@ -58,11 +58,12 @@ class TestBoard(unittest.TestCase):
         down_face = faces['D']
         self.assertEqual(len(down_face), 3)
 
-    # def test_invalid_center_position(self):
-    #     loader = CubeLoader()
-    #     loader.load('tests/fixtures/invalid_center_position.txt')
-
-    #     self.assertFalse(loader.validate())
+    def test_invalid_center_position(self):
+        loader = CubeLoader()
+        try:
+            loader.load('tests/fixtures/invalid_center_position.txt')
+        except Exception as e:
+            self.assertEqual(str(e), 'Invalid center position')
 
     def test_loads_invalid_cell_count(self):
         loader = CubeLoader()
