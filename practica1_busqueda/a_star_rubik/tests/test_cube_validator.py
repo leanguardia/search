@@ -81,6 +81,18 @@ class TestCubeValidator(unittest.TestCase):
             }).run()
         self.assertEqual(str(context.exception), 'There should be 9 cells of each color')
 
+    def test_invalid_centers(self):
+        with self.assertRaises(Exception) as context:
+            CubeValidator({
+                'U': ['WWW', 'WOW', 'WWW'],
+                'L': ['OOO', 'OWO', 'OOO'],
+                'F': ['GGG', 'GGG', 'GGG'],
+                'R': ['RRR', 'RRR', 'RRR'],
+                'B': ['BBB', 'BBB', 'BBB'],
+                'D': ['YYY', 'YYY', 'YYY'],
+            }).run()
+        self.assertEqual(str(context.exception), 'Invalid Center Positions')
+
 
 # Run the tests
 if __name__ == '__main__':
