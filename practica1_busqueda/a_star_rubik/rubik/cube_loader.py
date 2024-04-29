@@ -45,7 +45,7 @@ class CubeLoader():
         # data has 54 characters
         if len(data) != 54:
             raise Exception('Invalid cell count')
-        
+
         # center positions
         centers = [data[4], data[22], data[25], data[28], data[31], data[49]]
         if centers != self.colors:
