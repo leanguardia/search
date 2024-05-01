@@ -28,7 +28,6 @@ Encontrarás ejemplos de los resultados deseados en `cubes/formats/*`
 - Correctitud
 - Completitud
 - Código Limpio
-- Seguir el mismo estilo que el resto del código (Opcional pero muy recomendable)
 - Transformar e incluir las configuraciones de la carpeta `cubes/cube*` en un folder específico. Por ejemplo `cubes/snake/snake-12.txt,cubes/snake/snake-13.txt, ....` como prueba de su funcionamiento.
 - No modificar `main.py.` Crear un nuevo script exclusivo para tu adaptador. Por ejemplo `main_snake.py`
 
@@ -62,7 +61,7 @@ Este adaptador está listo ✅
 
 # Adaptadores Requeridos
 
-### `ToSquare` (4 puntos)
+### `ToSquare` (6 puntos)
 ```
 WWWWWWWWW
 OOOOOOOOO
@@ -113,7 +112,7 @@ O O O O O O O O O
 ```
 
 
-### `ToSnake` (4 puntos)
+### `ToSnake` (6 puntos)
 ```
 www
 www
