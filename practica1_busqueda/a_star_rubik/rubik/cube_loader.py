@@ -38,3 +38,5 @@ class CubeLoader():
         file.close()
 
         CubeValidator(self.faces).run()
+
+        return self.faces

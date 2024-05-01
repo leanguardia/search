@@ -1,8 +1,10 @@
-## Adapters
+# Adapters
 
-¿Quieres ganarte unos puntos extra?
+## Enunciado
 
-Necesitamos transformar este formato de cubos en diferentes formatos.
+¿Quieres ganarte unos puntos extra? ✨
+
+Necesitamos transformar este formato de representación de cubos (desde ahora llamado `face_dict` o diccionario de caras) a diferentes formatos.
 
 ```
 { 
@@ -17,7 +19,7 @@ Necesitamos transformar este formato de cubos en diferentes formatos.
 
 Elije uno de los siguientes adaptadores, impleméntalo y abre un Pull Request (PR). 
 
-Solo el autor(a) del primer PR aceptado por adaptador ganará los puntos.
+Solo el autor(a) del primer PR aceptado ganará los puntos por cada adaptador.
 
 Encontrarás ejemplos de los resultados deseados en `cubes/formats/*`
 
@@ -27,10 +29,40 @@ Encontrarás ejemplos de los resultados deseados en `cubes/formats/*`
 - Completitud
 - Código Limpio
 - Seguir el mismo estilo que el resto del código (Opcional pero muy recomendable)
-- Transformar e incluir las 30 configuraciones de cubos dentro de la carpeta `cubes` en un folder específico. Por ejemplo `cubes/snake/snake-12.txt,cubes/snake/snake-13.txt, ....` como prueba de su funcionamiento.
+- Transformar e incluir las configuraciones de la carpeta `cubes/cube*` en un folder específico. Por ejemplo `cubes/snake/snake-12.txt,cubes/snake/snake-13.txt, ....` como prueba de su funcionamiento.
+- No modificar `main.py.` Crear un nuevo script exclusivo para tu adaptador. Por ejemplo `main_snake.py`
 
 
-### `ToSquare` (3.5 puntos)
+### Pruebas Unitarias
+Para correr las pruebas
+```
+cd a_star_rubik
+python3 -m unittest tests <path-to-tests>
+```
+
+### Main
+```
+cd a_star_rubik
+python3 -m rubik.main
+```
+
+
+### Ejemplo ~~`ToDictionary`~~
+Este adaptador está listo ✅
+```
+{
+    "F": [["G", "G", "G"], ["G", "W", "G"], ["G", "G", "G"]],
+    "U": [["W", "W", "W"], ["W", "W", "W"], ["W", "W", "W"]],
+    "D": [["Y", "Y", "Y"], ["Y", "Y", "Y"], ["Y", "Y", "Y"]],
+    "B": [["B", "B", "B"], ["B", "B", "B"], ["B", "B", "B"]],
+    "L": [["O", "O", "O"], ["O", "O", "O"], ["O", "O", "O"]],
+    "R": [["R", "R", "R"], ["R", "R", "R"], ["R", "R", "R"]]
+}
+```
+
+# Adaptadores Requeridos
+
+### `ToSquare` (4 puntos)
 ```
 WWWWWWWWW
 OOOOOOOOO
@@ -102,6 +134,8 @@ ggg
 ggg
 ggg
 ```
+**Opciones**
+
 `--face_order=[]` IDEM
 
 `--prepend_face` IDEM
@@ -157,18 +191,6 @@ Y Y Y
 222
 222
 222
-```
-
-### Face Dictionary `ToDictionary` (1 punto)
-```
-{
-    "F": [["G", "G", "G"], ["G", "W", "G"], ["G", "G", "G"]],
-    "U": [["W", "W", "W"], ["W", "W", "W"], ["W", "W", "W"]],
-    "D": [["Y", "Y", "Y"], ["Y", "Y", "Y"], ["Y", "Y", "Y"]],
-    "B": [["B", "B", "B"], ["B", "B", "B"], ["B", "B", "B"]],
-    "L": [["O", "O", "O"], ["O", "O", "O"], ["O", "O", "O"]],
-    "R": [["R", "R", "R"], ["R", "R", "R"], ["R", "R", "R"]]
-}
 ```
 
 ### YAML `ToYaml` (1 Punto)
@@ -426,3 +448,10 @@ Y,W,O,G,B,R
   }
 }
 ```
+
+
+### NOTA
+
+SI EL FORMATO DE TU PROYECTO NO ESTÁ INCLUIDO ES POR QUE TODAVÍA NO REVISÉ, ME FALTAN 6 EXAMENES.
+
+TE RECOMIENDO CONSTRUIR UN ADAPTADOR PARA TU FORMATO YA QUE LO NECESITARÁS EN LA DEFENSA DEL VIERNES. IGUAL VALDRÁ 1 PUNTO.
