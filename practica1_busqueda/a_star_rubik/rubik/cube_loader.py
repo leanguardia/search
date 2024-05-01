@@ -1,4 +1,4 @@
-from rubik.cube_validator import CubeValidator
+from cube_validator import CubeValidator
 
 class CubeLoader():
     def __init__(self):

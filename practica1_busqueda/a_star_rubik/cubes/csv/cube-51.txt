@@ -1,0 +1,10 @@
+Up,Front,Left,Right,Down,Back
+W,O,G,R,B,Y
+W,O,G,R,B,O
+W,O,G,R,B,O
+W,Y,G,R,B,R
+W,O,G,R,B,Y
+W,O,G,R,O,Y
+W,O,R,Y,R,Y
+W,Y,B,G,Y,B
+W,G,G,Y,B,B

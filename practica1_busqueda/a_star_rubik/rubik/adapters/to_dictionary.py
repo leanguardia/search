@@ -1,4 +1,4 @@
-from rubik.adapters.adapter import CubeAdapter
+from adapters.adapter import CubeAdapter
 
 class ToDictionary(CubeAdapter):
     def adapt(self):

@@ -1,7 +1,6 @@
-import pprint
 import os
 from cube_loader import CubeLoader
-from adapters.to_dictionary import ToDictionary
+from adapters.to_csv import ToCsv
 
 def load_file_from_user_input():
     file_name = input('Nombre de archivo: /cubes/')
@@ -26,14 +25,14 @@ if __name__ == '__main__':
     print(len(cube_file_names), "files found in /cubes/ folder")
 
     # NOTE: this folder must exist
-    folder_output = 'cubes/dictionary/'
+    folder_output = 'cubes/csv/'
 
     for file_name in cube_file_names:
         loader = CubeLoader()
         print("Loading cube", file_name)
         face_dict = loader.load('cubes/' + file_name)
-        adapter = ToDictionary(face_dict)
-        dictionary = adapter.adapt()
+        adapter = ToCsv(face_dict)
+        csv_cube = adapter.adapt()
         with open(folder_output + file_name, 'w') as f:
-            f.write(pprint.pformat(dictionary, sort_dicts=False, indent=4))
+            f.write(csv_cube)
         print("Cube", file_name, "adapted to new format")
