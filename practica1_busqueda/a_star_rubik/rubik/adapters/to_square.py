@@ -18,7 +18,7 @@ class ToSquare(CubeAdapter):
             if self.fill_with:
                 face_data = self.fill_with.join(face_data)
             if self.prepend_face:
-                face_data = face + face_data
+                face_data = face + ' ' + face_data
             if self.wrap_with:
                 face_data = self.wrap_with[0] + face_data + self.wrap_with[1]
             result.append(face_data)
