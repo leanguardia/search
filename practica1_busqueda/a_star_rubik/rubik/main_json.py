@@ -1,15 +1,6 @@
 import json
 from rubik.adapters.adapter import CubeAdapter
-
-class ToJson(CubeAdapter):
-    def __init__(self, face_dict):
-        super().__init__(face_dict)
-
-    def adapt(self):
-        # Prepare a dictionary to convert to JSON
-        data = {face: self.face_dict[face] for face in self.face_dict}
-        # Convert the dictionary to a JSON string
-        return json.dumps(data, indent=4)
+from rubik.adapters.to_json import ToJson
 
 # Example usage (this part can go in a separate script or under if __name__ == "__main__":)
 if __name__ == "__main__":
@@ -21,6 +12,6 @@ if __name__ == "__main__":
         'B': ['OWG', 'GBO', 'OWB'],
         'D': ['BYB', 'GYR', 'WRW']
     }
-    adapter = ToJson(face_dict)
+    adapter = ToJson(face_dict, state_label='start')
     json_output = adapter.adapt()
     print(json_output)
