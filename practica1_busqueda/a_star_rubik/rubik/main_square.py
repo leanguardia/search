@@ -25,14 +25,14 @@ if __name__ == '__main__':
     print(len(cube_file_names), "files found in /cubes/ folder")
 
     # NOTE: this folder must exist
-    folder_output = 'cubes/csv/'
+    folder_output = 'cubes/square/'
 
     for file_name in cube_file_names:
         loader = CubeLoader()
         print("Loading cube", file_name)
         face_dict = loader.load('cubes/' + file_name)
         adapter = ToSquare(face_dict)
-        square_cube = adapter.adapt(fill_with=" ",wrap_with="[]",prepend_face=True)
+        square_cube = adapter.adapt(fill_with=" ")
         print(square_cube)
         with open(folder_output + file_name, 'w') as f:
            f.write(square_cube)
