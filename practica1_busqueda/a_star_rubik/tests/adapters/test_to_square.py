@@ -70,12 +70,12 @@ class TestToSquare(unittest.TestCase):
         adapter = ToSquare(self.face_dict, value_map=value_map) 
         result = adapter.adapt()
         expected = "\n".join([
-            "red blue yellow yellow white blue orange green white",
-            "yellow red white white orange blue red white orange",
-            "blue red green orange green green yellow orange yellow",
-            "red yellow green orange red yellow red blue green",
-            "orange white green green blue orange orange white blue",
-            "blue yellow blue green yellow red white red white"
+            "red,blue,yellow,yellow,white,blue,orange,green,white",
+            "yellow,red,white,white,orange,blue,red,white,orange",
+            "blue,red,green,orange,green,green,yellow,orange,yellow",
+            "red,yellow,green,orange,red,yellow,red,blue,green",
+            "orange,white,green,green,blue,orange,orange,white,blue",
+            "blue,yellow,blue,green,yellow,red,white,red,white"
         ])
         self.assertEqual(result, expected)
     
