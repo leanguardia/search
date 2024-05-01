@@ -1,4 +1,5 @@
 import json
+
 from rubik.adapters.adapter import CubeAdapter
 
 class ToJson(CubeAdapter):
@@ -10,7 +11,12 @@ class ToJson(CubeAdapter):
         formatted_dict = {
             self.state_label: {}
         }
+
         for face, rows in self.face_dict.items():
-            formatted_dict[self.state_label][face] = rows
+            formatted_rows = []
+            for row in rows:
+                formatted_row = [char for char in row]
+                formatted_rows.append(formatted_row)
+            formatted_dict[self.state_label][face] = formatted_rows
 
         return json.dumps(formatted_dict, indent=4)
