@@ -34,6 +34,6 @@ if __name__ == '__main__':
         adapter = ToSquare(face_dict)
         square_cube = adapter.adapt(fill_with=" ",wrap_with="[]",prepend_face=True)
         print(square_cube)
-        # with open(folder_output + file_name, 'w') as f:
-        #     f.write(csv_cube)
-        # print("Cube", file_name, "adapted to new format")
+        with open(folder_output + file_name, 'w') as f:
+           f.write(square_cube)
+        print("Cube", file_name, "adapted to new format")

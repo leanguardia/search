@@ -8,12 +8,12 @@ class ToSquare(CubeAdapter):
             for row in rows:
                 pattern.extend(list(row))
             sublists = [pattern[i:i+9] for i in range(0, len(pattern), 9)]
-            formatted_strings = '\n'.join([fill_with.join(sublist) for sublist in sublists])
+            cube_string = '\n'.join([fill_with.join(sublist) for sublist in sublists])
        if prepend_face:
             sublists = [face_order[i] + "".join(sublist) for i, sublist in enumerate(sublists)]
-            formatted_strings = '\n'.join([fill_with.join(sublist) for sublist in sublists])
+            cube_string = '\n'.join([fill_with.join(sublist) for sublist in sublists])
        if wrap_with:
-            formatted_strings = "\n".join([wrap_with[0] + row + wrap_with[1] for row in formatted_strings.split('\n')])
+            cube_string = "\n".join([wrap_with[0] + row + wrap_with[1] for row in cube_string.split('\n')])
        
-       print(formatted_strings)
+       return cube_string
 
