@@ -6,4 +6,3 @@ class ToDictionary(CubeAdapter):
             face: [list(row) for row in rows]
             for face, rows in self.face_dict.items()
         }
-        
