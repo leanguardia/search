@@ -39,4 +39,3 @@ down:
     yellow yellow yellow
 """
         )
-        
