@@ -28,4 +28,3 @@ if __name__ == '__main__':
         with open(folder_output + file_name, 'w') as f:
             f.write(csv_cube)
         print("Cube", file_name, "adapted to new format")
-    
