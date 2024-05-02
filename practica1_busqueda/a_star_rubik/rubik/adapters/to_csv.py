@@ -10,3 +10,4 @@ class ToCsv(CubeAdapter):
 
         formatted_strings = '\n'.join([','.join(pattern) for pattern in patterns])
         return 'Up,Front,Left,Right,Down,Back\n' + formatted_strings
+    

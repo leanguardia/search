@@ -43,3 +43,4 @@ class CubeValidator():
         centers = [self.faces[face][1][1] for face in self.faces]
         if centers != self.colors:
             raise Exception('Invalid Center Positions')
+

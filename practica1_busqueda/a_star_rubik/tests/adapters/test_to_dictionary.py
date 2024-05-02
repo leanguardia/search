@@ -1,5 +1,6 @@
 import unittest
 from rubik.adapters.to_dictionary import ToDictionary
+
 class TestDictionaryAdapter(unittest.TestCase):
     def test_adapt(self):
         faces_dict = {
@@ -22,5 +23,3 @@ class TestDictionaryAdapter(unittest.TestCase):
                 'D': [['Y','Y','Y'], ['Y','Y','Y'], ['Y','Y','Y']],
             }
         )
-        
-
