@@ -1,7 +1,6 @@
 import unittest
 import json
-
-from rubik.adapters.to_json import ToJson
+from rubik.adapters.to_json import ToJson, HARDCODED_END
 
 class TestToJson(unittest.TestCase):
     def setUp(self):
@@ -15,37 +14,14 @@ class TestToJson(unittest.TestCase):
         }
         self.expected_output = {
             "start": {
-                "U": [
-                    ["R", "B", "Y"],
-                    ["Y", "W", "B"],
-                    ["O", "G", "W"]
-                ],
-                "L": [
-                    ["Y", "R", "W"],
-                    ["W", "O", "B"],
-                    ["R", "W", "O"]
-                ],
-                "F": [
-                    ["B", "R", "G"],
-                    ["O", "G", "G"],
-                    ["Y", "O", "Y"]
-                ],
-                "R": [
-                    ["R", "Y", "G"],
-                    ["O", "R", "Y"],
-                    ["R", "B", "G"]
-                ],
-                "B": [
-                    ["O", "W", "G"],
-                    ["G", "B", "O"],
-                    ["O", "W", "B"]
-                ],
-                "D": [
-                    ["B", "Y", "B"],
-                    ["G", "Y", "R"],
-                    ["W", "R", "W"]
-                ]
-            }
+                "U": [["R", "B", "Y"], ["Y", "W", "B"], ["O", "G", "W"]],
+                "L": [["Y", "R", "W"], ["W", "O", "B"], ["R", "W", "O"]],
+                "F": [["B", "R", "G"], ["O", "G", "G"], ["Y", "O", "Y"]],
+                "R": [["R", "Y", "G"], ["O", "R", "Y"], ["R", "B", "G"]],
+                "B": [["O", "W", "G"], ["G", "B", "O"], ["O", "W", "B"]],
+                "D": [["B", "Y", "B"], ["G", "Y", "R"], ["W", "R", "W"]]
+            },
+            "end": HARDCODED_END
         }
 
     def test_adapt(self):

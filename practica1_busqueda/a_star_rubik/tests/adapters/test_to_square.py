@@ -30,12 +30,12 @@ class TestToSquare(unittest.TestCase):
         adapter = ToSquare(self.face_dict, prepend_face=True)
         result = adapter.adapt()
         expected = "\n".join([
-            "U RBYYWBOGW",
-            "L YRWWOBRWO",
-            "F BRGOGGYOY",
-            "R RYGORYRBG",
-            "B OWGGBOOWB",
-            "D BYBGYRWRW"
+            "URBYYWBOGW",
+            "LYRWWOBRWO",
+            "FBRGOGGYOY",
+            "RRYGORYRBG",
+            "BOWGGBOOWB",
+            "DBYBGYRWRW"
         ])
         self.assertEqual(result, expected)
 
