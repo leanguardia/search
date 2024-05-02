@@ -26,6 +26,3 @@ W,O,G,R,B,Y
 W,O,G,R,B,Y"""
         )
         
-# Run the tests
-if __name__ == '__main__':
-    unittest.main()

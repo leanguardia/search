@@ -23,6 +23,4 @@ class TestDictionaryAdapter(unittest.TestCase):
             }
         )
         
-# Run the tests
-if __name__ == '__main__':
-    unittest.main()
+

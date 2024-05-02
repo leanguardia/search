@@ -1,15 +1,6 @@
 import os
 from rubik.cube_loader import CubeLoader
 from rubik.adapters.to_yaml import ToYAML
-def load_file_from_user_input():
-    file_name = input('Nombre de archivo: /cubes/')
-    file_path = "cubes/" + file_name
-    if file_name[-4:] != '.txt':
-        file_path += '.txt'
-    print("Loading cube from file: " + file_path)
-
-    loader = CubeLoader()
-    print(loader.load(file_path))
 
 def load_sample_cubes_file_names():
     file_names = os.listdir('cubes')
@@ -18,7 +9,7 @@ def load_sample_cubes_file_names():
     return file_names
 
 if __name__ == '__main__':
-    # load_file_from_user_input()
+  
 
     cube_file_names = load_sample_cubes_file_names()
     print(len(cube_file_names), "files found in /cubes/ folder")
@@ -30,8 +21,10 @@ if __name__ == '__main__':
         loader = CubeLoader()
         print("Loading cube", file_name)
         face_dict = loader.load('cubes/' + file_name)
+        
         adapter = ToYAML(face_dict)
         yaml_cube = adapter.adapt()
+        
         with open(folder_output + file_name, 'w') as f:
              f.write(yaml_cube)
         print("Cube", file_name, "adapted to new format")
