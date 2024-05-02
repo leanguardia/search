@@ -1,25 +1,27 @@
 from rubik.adapters.adapter import CubeAdapter
-
+import json
 
 class ToSnake(CubeAdapter):
-    def adapt(self, face_order=None, prepend_face=False, sort_by=None, add_breakline=False, space_between=False):
+    def adapt(self, face_order='ULFRBD', prepend_face=False, sort_by=None, add_breakline=False, fill_with='', value_map=None):
         cadena = ""
-        if face_order is None:
-            face_order = ['U', 'L', 'F', 'R', 'B', 'D']  # Formato por defecto
         for cara in face_order:
             for i in range(3):
                 if prepend_face:
-                    cadena += cara + ' '
-                cadena += self.face_dict[cara][i][0] + ' '
-                cadena += self.face_dict[cara][i][1] + ' '
-                cadena += self.face_dict[cara][i][2] + '\n'
+                    cadena += cara + fill_with
+
+                if value_map is not None:
+                    value_map2 = eval(value_map)
+                cadena += self.face_dict[cara][i][0] + fill_with if value_map is None else value_map2[self.face_dict[cara][i][0]] + fill_with
+                cadena += self.face_dict[cara][i][1] + fill_with if value_map is None else value_map2[self.face_dict[cara][i][1]] + fill_with
+                cadena += self.face_dict[cara][i][2] + '\n' if value_map is None else value_map2[self.face_dict[cara][i][2]] + '\n'
+
             if add_breakline:
                 cadena += '\n'
+
         if sort_by == 'level':
             cadena = self.sort_by_level(cadena)
-        if not space_between:
-            cadena = cadena.replace(' ','')
-        return cadena.upper()
+
+        return cadena
 
     def sort_by_level(self, cadena):
         filas = cadena.strip().split('\n')

@@ -76,24 +76,24 @@ class TestSnakeAdapter(unittest.TestCase):
         }
         adapter = ToSnake(faces_dict)
         self.assertEqual(
-            adapter.adapt(prepend_face=True, space_between=True), "U W W W\n"
-                                                                  "U W W W\n"
-                                                                  "U W W W\n"
-                                                                  "L O O O\n"
-                                                                  "L O O O\n"
-                                                                  "L O O O\n"
-                                                                  "F G G G\n"
-                                                                  "F G G G\n"
-                                                                  "F G G G\n"
-                                                                  "R R R R\n"
-                                                                  "R R R R\n"
-                                                                  "R R R R\n"
-                                                                  "B B B B\n"
-                                                                  "B B B B\n"
-                                                                  "B B B B\n"
-                                                                  "D Y Y Y\n"
-                                                                  "D Y Y Y\n"
-                                                                  'D Y Y Y\n'
+            adapter.adapt(prepend_face=True, fill_with=' '), "U W W W\n"
+                                                             "U W W W\n"
+                                                             "U W W W\n"
+                                                             "L O O O\n"
+                                                             "L O O O\n"
+                                                             "L O O O\n"
+                                                             "F G G G\n"
+                                                             "F G G G\n"
+                                                             "F G G G\n"
+                                                             "R R R R\n"
+                                                             "R R R R\n"
+                                                             "R R R R\n"
+                                                             "B B B B\n"
+                                                             "B B B B\n"
+                                                             "B B B B\n"
+                                                             "D Y Y Y\n"
+                                                             "D Y Y Y\n"
+                                                             'D Y Y Y\n'
         )
 
     def test_adapt_snake_break_line(self):
@@ -138,22 +138,55 @@ class TestSnakeAdapter(unittest.TestCase):
         }
         adapter = ToSnake(faces_dict)
         self.assertEqual(
-            adapter.adapt(sort_by='level', space_between=True), "W W W\n" +
-                                                                "W W W\n" +
-                                                                "W W W\n" +
-                                                                "O O O\n" +
-                                                                "G G G\n" +
-                                                                "R R R\n" +
-                                                                "B B B\n" +
-                                                                "O O O\n" +
-                                                                "G G G\n" +
-                                                                "R R R\n" +
-                                                                "B B B\n" +
-                                                                "O O O\n" +
-                                                                "G G G\n" +
-                                                                "R R R\n" +
-                                                                "B B B\n" +
-                                                                "Y Y Y\n" +
-                                                                "Y Y Y\n" +
-                                                                'Y Y Y\n'
+            adapter.adapt(sort_by='level', fill_with=' '), "W W W\n" +
+                                                           "W W W\n" +
+                                                           "W W W\n" +
+                                                           "O O O\n" +
+                                                           "G G G\n" +
+                                                           "R R R\n" +
+                                                           "B B B\n" +
+                                                           "O O O\n" +
+                                                           "G G G\n" +
+                                                           "R R R\n" +
+                                                           "B B B\n" +
+                                                           "O O O\n" +
+                                                           "G G G\n" +
+                                                           "R R R\n" +
+                                                           "B B B\n" +
+                                                           "Y Y Y\n" +
+                                                           "Y Y Y\n" +
+                                                           'Y Y Y\n'
+        )
+
+    def test_adapt_snake_value_map(self):
+        faces_dict = {
+            'U': ['WWW', 'WWW', 'WWW'],
+            'L': ['OOO', 'OOO', 'OOO'],
+            'F': ['GGG', 'GGG', 'GGG'],
+            'R': ['RRR', 'RRR', 'RRR'],
+            'B': ['BBB', 'BBB', 'BBB'],
+            'D': ['YYY', 'YYY', 'YYY'],
+        }
+        adapter = ToSnake(faces_dict)
+        self.assertEqual(
+            adapter.adapt(
+                value_map='{"W": "white", "O": "orange", "B": "blue", "R": "red", "Y": "yellow", "G": "green"}',
+                fill_with=' '), "white white white\n" +
+                                "white white white\n" +
+                                "white white white\n" +
+                                "orange orange orange\n" +
+                                "orange orange orange\n" +
+                                "orange orange orange\n" +
+                                "green green green\n" +
+                                "green green green\n" +
+                                "green green green\n" +
+                                "red red red\n" +
+                                "red red red\n" +
+                                "red red red\n" +
+                                "blue blue blue\n" +
+                                "blue blue blue\n" +
+                                "blue blue blue\n" +
+                                "yellow yellow yellow\n" +
+                                "yellow yellow yellow\n" +
+                                'yellow yellow yellow\n'
         )
