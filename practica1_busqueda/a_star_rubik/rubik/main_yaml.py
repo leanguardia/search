@@ -1,6 +1,6 @@
 import os
-from cube_loader import CubeLoader
-from adapters.to_yaml import ToYAML
+from rubik.cube_loader import CubeLoader
+from rubik.adapters.to_yaml import ToYAML
 def load_file_from_user_input():
     file_name = input('Nombre de archivo: /cubes/')
     file_path = "cubes/" + file_name

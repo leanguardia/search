@@ -1,4 +1,4 @@
-from adapters.adapter import CubeAdapter
+from rubik.adapters.adapter import CubeAdapter
 
 class ToCsv(CubeAdapter):
     def adapt(self):

@@ -1,4 +1,4 @@
-from adapters.adapter import CubeAdapter
+from rubik.adapters.adapter import CubeAdapter
 COLORS = {
     "W": "white",
     "O": "orange",

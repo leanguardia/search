@@ -1,4 +1,4 @@
-from adapters.adapter import CubeAdapter
+from rubik.adapters.adapter import CubeAdapter
 
 class ToSquare(CubeAdapter):
     def adapt(self,fill_with="",face_order=["U", "L", "F", "R", "B", "D"],
