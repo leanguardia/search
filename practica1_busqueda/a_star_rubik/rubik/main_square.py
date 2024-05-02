@@ -1,37 +1,40 @@
+# rubik/main_square.py
+import os
 import argparse
+from rubik.cube_loader import CubeLoader
 from rubik.adapters.to_square import ToSquare
 
 def main():
-    parser = argparse.ArgumentParser(description="Transform a Rubik's Cube face dictionary to a square string representation.")
-    parser.add_argument('--value_map', type=str, help="Map of characters to replace. Example: R:red,Y:yellow", default=None)
-    parser.add_argument('--face_order', type=str, help="Comma-separated list of faces in the order to process. Example: U,L,F,R,B,D", default="U,L,F,R,B,D")
-    parser.add_argument('--prepend_face', action='store_true', help="Prepend each face's data with its identifier.")
-    parser.add_argument('--fill_with', type=str, help="Character to fill between elements. Example: ','", default='')
-    parser.add_argument('--wrap_with', type=str, help="Characters to wrap each face's data. Example: []", default=None)
-    
+    # Configurar el analizador de argumentos
+    parser = argparse.ArgumentParser(description='Adaptar cubos a formato cuadrado')
+    parser.add_argument('--prefix', default='', help='Prefijo para los nombres de archivo de salida')
+    parser.add_argument('--prepend_face', action='store_true', help='Anteponer el nombre de la cara al principio de cada línea')
+    parser.add_argument('--fill_with', default='', help='Carácter para rellenar los espacios vacíos')
+    parser.add_argument('--wrap_with', nargs=2, metavar=('START', 'END'), default=None, help='Caracteres para envolver cada línea')
+
     args = parser.parse_args()
 
-    # Process value_map
-    value_map = {k:v for k,v in (item.split(':') for item in args.value_map.split(','))} if args.value_map else None
+    # Cargar los archivos de cubos desde la carpeta 'cubes'
+    cube_file_names = [f for f in os.listdir('cubes') if f.startswith('cube')]
+    print(f"{len(cube_file_names)} archivos encontrados en la carpeta /cubes/")
 
-    # Process face_order
-    face_order = args.face_order.split(',') if args.face_order else None
+    # Crear la carpeta de salida si no existe
+    output_folder = 'cubes/square/'
+    os.makedirs(output_folder, exist_ok=True)
 
-    # Process wrap_with
-    wrap_with = (args.wrap_with[0], args.wrap_with[-1]) if args.wrap_with else None
+    for file_name in cube_file_names:
+        print(f"Cargando cubo {file_name}")
+        loader = CubeLoader()
+        face_dict = loader.load(os.path.join('cubes', file_name))
 
-    # Create and configure the ToSquare adapter
-    face_dict = {
-        'U': ['RBY', 'YWB', 'OGW'],
-        'L': ['YRW', 'WOB', 'RWO'],
-        'F': ['BRG', 'OGG', 'YOY'],
-        'R': ['RYG', 'ORY', 'RBG'],
-        'B': ['OWG', 'GBO', 'OWB'],
-        'D': ['BYB', 'GYR', 'WRW']
-    }
-    adapter = ToSquare(face_dict, value_map=value_map, face_order=face_order, 
-                       prepend_face=args.prepend_face, fill_with=args.fill_with, wrap_with=wrap_with)
-    print(adapter.adapt())
+        adapter = ToSquare(face_dict, prepend_face=args.prepend_face, fill_with=args.fill_with, wrap_with=args.wrap_with)
+        square_cube = adapter.adapt()
+
+        output_file = os.path.join(output_folder, f"{args.prefix}{file_name}.txt")
+        with open(output_file, 'w') as f:
+            f.write(square_cube)
+
+        print(f"Cubo {file_name} adaptado y guardado en {output_file}")
 
 if __name__ == '__main__':
     main()

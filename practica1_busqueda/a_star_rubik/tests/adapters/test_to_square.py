@@ -79,6 +79,21 @@ class TestToSquare(unittest.TestCase):
         ])
         self.assertEqual(result, expected)
     
+    def test_with_value_map_fill_with(self):
+        value_map = {'R': 'red', 'Y': 'yellow', 'B': 'blue', 'G': 'green', 'W': 'white', 'O': 'orange'}
+        adapter = ToSquare(self.face_dict, value_map=value_map, fill_with='/')
+        result = adapter.adapt()
+        expected = "\n".join([
+            "red/blue/yellow/yellow/white/blue/orange/green/white",
+            "yellow/red/white/white/orange/blue/red/white/orange",
+            "blue/red/green/orange/green/green/yellow/orange/yellow",
+            "red/yellow/green/orange/red/yellow/red/blue/green",
+            "orange/white/green/green/blue/orange/orange/white/blue",
+            "blue/yellow/blue/green/yellow/red/white/red/white"
+        ])
+        self.assertEqual(result, expected)
+        
+    
 
 # To run the tests
 if __name__ == '__main__':

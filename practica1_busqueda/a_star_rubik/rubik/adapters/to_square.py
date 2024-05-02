@@ -12,16 +12,18 @@ class ToSquare(CubeAdapter):
     def adapt(self):
         result = []
         for face in self.face_order:
-            face_data = ''.join(self.face_dict[face])
+            face_data = ''.join([''.join(row) for row in self.face_dict[face]])
             if self.value_map:
-                face_data = ' '.join(self.value_map.get(char, char) for char in face_data)
-                face_data = ','.join(face_data.split())
-            if self.fill_with:
-                face_data = self.fill_with.join(face_data)
+                face_values = [self.value_map[char] for char in face_data]
+                separator = self.fill_with if self.fill_with else ','
+                face_data = separator.join(face_values)
+            else:
+                separator = self.fill_with if self.fill_with else ''
+                face_data = separator.join(face_data)
             if self.prepend_face:
                 face_data = face + ' ' + face_data
             if self.wrap_with:
                 face_data = self.wrap_with[0] + face_data + self.wrap_with[1]
             result.append(face_data)
-        
         return '\n'.join(result)
+
