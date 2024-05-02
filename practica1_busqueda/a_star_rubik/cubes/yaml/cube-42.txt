@@ -1,0 +1,24 @@
+up:
+    white white white
+    white white white
+    white white white
+left:
+    orange orange orange
+    orange orange orange
+    red yellow yellow
+front:
+    green green green
+    green green green
+    green red yellow
+right:
+    red red red
+    red red red
+    blue yellow orange
+back:
+    blue blue blue
+    blue blue blue
+    green blue yellow
+down:
+    red yellow orange
+    orange yellow green
+    blue yellow yellow
