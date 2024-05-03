@@ -24,9 +24,10 @@ if __name__ == '__main__':
     parser.add_argument('--sort_by', choices=['face', 'level'], help='Sort face by face or level')
     parser.add_argument('--add_breakline', action='store_true', help='Add a breakline between each face')
     parser.add_argument('--fill_with', default='', help='Add a separator between each element')
-    parser.add_argument('--value_map', default=None, help='Replaces the colors of the pieces with the inserted value, respect the dictionary format, '
-                                                          "example \"{'W':'white','O':'orange','B':'blue','R':'red',"
-                                                          "'Y':'yellow','G':'green'}\" ")
+    parser.add_argument('--value_map', default=None,
+                        help='Replaces the colors of the pieces with the inserted value, respect the dictionary format, '
+                             "example \"{'W':'white','O':'orange','B':'blue','R':'red',"
+                             "'Y':'yellow','G':'green'}\" ")
     args = parser.parse_args()
     cube_file_names = load_sample_cubes_file_names()
     print(len(cube_file_names), "files found in /cubes/ folder")

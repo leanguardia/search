@@ -135,14 +135,54 @@ ggg
 ```
 **Opciones**
 
-`--face_order=[]` IDEM
+`--face order ULFRBD` por defecto `ULFRBD`
+```
+WWW
+WWW
+WWW
+OOO
+OOO
+OOO
+GGG
+GGG
+GGG
+RRR
+RRR
+RRR
+BBB
+BBB
+BBB
+YYY
+YYY
+YYY
+```
 
-`--prepend_face` IDEM
+`--prepend_face --fill_with ' '` 
+```
+U W W W
+U W W W
+U W W W
+L O O O
+L O O O
+L O O O
+F G G G
+F G G G
+F G G G
+R R R R
+R R R R
+R R R R
+B B B B
+B B B B
+B B B B
+D Y Y Y
+D Y Y Y
+D Y Y Y
+```
 
 `--sort_by={ face, level }` Son dos posibles valores; face y level.
 `Face` obedece al valor de `face_order` y ordena la salida por cada cara.
 `Level` ordena por nivel, primero la capa de arriba, luego la primera fila de las caras laterales, luego la segunda, la tercera y por último la cara inferior
-
+`--sort_by 'level' --fill_with ' ''`
 ```
 W W W
 W W W
@@ -167,29 +207,51 @@ Y Y Y
 
 `--add_breakline`
 ```
-555
-555
-555
+WWW
+WWW
+WWW
 
-333
-333
-333
+OOO
+OOO
+OOO
 
-111
-111
-111
+GGG
+GGG
+GGG
 
-666
-666
-666
+RRR
+RRR
+RRR
 
-444
-444
-444
+BBB
+BBB
+BBB
 
-222
-222
-222
+YYY
+YYY
+YYY
+```
+
+`--fill_with ' ' --value_map '{"W": "white", "O": "orange", "B": "blue", "R": "red", "Y": "yellow", "G": "green"}'`
+```
+white white white
+white white white
+white white white
+orange orange orange
+orange orange orange
+orange orange orange
+green green green
+green green green
+green green green
+red red red
+red red red
+red red red
+blue blue blue
+blue blue blue
+blue blue blue
+yellow yellow yellow
+yellow yellow yellow
+yellow yellow yellow
 ```
 
 ### YAML `ToYaml` (1 Punto)

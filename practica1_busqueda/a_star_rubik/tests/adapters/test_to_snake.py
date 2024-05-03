@@ -124,7 +124,7 @@ class TestSnakeAdapter(unittest.TestCase):
                                                "BBB\n\n" +
                                                "YYY\n" +
                                                "YYY\n" +
-                                               'YYY\n\n'
+                                               'YYY\n'
         )
 
     def test_adapt_snake_sort_by_level(self):
@@ -190,3 +190,7 @@ class TestSnakeAdapter(unittest.TestCase):
                                 "yellow yellow yellow\n" +
                                 'yellow yellow yellow\n'
         )
+
+
+if "__main__" == __name__:
+    unittest.main()
