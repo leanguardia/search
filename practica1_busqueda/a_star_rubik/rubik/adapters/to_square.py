@@ -26,4 +26,3 @@ class ToSquare(CubeAdapter):
                 face_data = self.wrap_with[0] + face_data + self.wrap_with[1]
             result.append(face_data)
         return '\n'.join(result)
-
