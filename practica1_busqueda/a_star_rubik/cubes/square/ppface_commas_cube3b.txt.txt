@@ -1,0 +1,6 @@
+U G, W, W, G, W, W, G, Y, Y
+L R, R, R, O, O, O, O, O, O
+F W, G, G, Y, G, G, Y, G, G
+R O, R, R, O, R, R, O, R, R
+B B, B, Y, B, B, W, B, B, W
+D B, W, W, B, Y, Y, B, Y, Y
